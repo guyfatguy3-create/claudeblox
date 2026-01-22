@@ -1,0 +1,891 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Claudeblox Engineering</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Source+Code+Pro:wght@400;500&display=swap');
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--bg:#faf7f5;--card:#ffffff;--primary:#da7756;--primary-light:#e8a088;--primary-dark:#c4624a;--accent:#f5c4b3;--text:#3d3029;--text-light:#6b5d54;--text-muted:#9a8b82;--border:#e8ddd6;--shadow:0 4px 20px rgba(195,140,120,0.12)}
+body{background:var(--bg);color:var(--text);font-family:'Nunito',sans-serif;line-height:1.6}
+.header{background:var(--card);border-bottom:1px solid var(--border);padding:20px 40px;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px rgba(195,140,120,0.08)}
+.header-content{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:12px}
+.logo-icon{width:42px;height:42px;background:linear-gradient(135deg,var(--primary),var(--primary-light));border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:800;color:white;font-size:18px}
+.logo-text{font-size:22px;font-weight:800;color:var(--primary-dark)}
+.logo-text span{color:var(--text-light);font-weight:600}
+.nav{display:flex;gap:8px}
+.nav-btn{padding:10px 18px;border:none;background:transparent;color:var(--text-light);font-family:'Nunito',sans-serif;font-weight:600;font-size:14px;border-radius:10px;cursor:pointer;transition:all 0.2s}
+.nav-btn:hover{background:var(--accent);color:var(--primary-dark)}
+.nav-btn.active{background:var(--primary);color:white}
+.hero{max-width:1200px;margin:0 auto;padding:60px 40px;text-align:center}
+.hero h1{font-size:42px;font-weight:800;color:var(--text);margin-bottom:12px}
+.hero h1 span{color:var(--primary)}
+.hero p{font-size:18px;color:var(--text-light);max-width:600px;margin:0 auto 30px}
+.hero-buttons{display:flex;gap:12px;justify-content:center}
+.btn{padding:14px 28px;border:none;border-radius:12px;font-family:'Nunito',sans-serif;font-weight:700;font-size:15px;cursor:pointer;transition:all 0.2s}
+.btn-primary{background:var(--primary);color:white}
+.btn-primary:hover{background:var(--primary-dark);transform:translateY(-2px);box-shadow:0 6px 20px rgba(218,119,86,0.3)}
+.btn-secondary{background:var(--card);color:var(--text);border:2px solid var(--border)}
+.btn-secondary:hover{border-color:var(--primary-light);background:var(--accent)}
+.summary{max-width:900px;margin:0 auto 60px;padding:0 40px}
+.summary-card{background:var(--card);border-radius:20px;padding:32px 40px;box-shadow:var(--shadow);border:1px solid var(--border)}
+.summary-card h2{font-size:20px;font-weight:700;color:var(--primary-dark);margin-bottom:12px}
+.summary-card p{color:var(--text-light);font-size:15px}
+.section-title{max-width:1200px;margin:0 auto;padding:40px 40px 20px;font-size:28px;font-weight:800;color:var(--text)}
+.section-title span{color:var(--primary)}
+.grid{max-width:1200px;margin:0 auto;padding:0 40px 60px;display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:24px}
+.code-card{background:var(--card);border-radius:16px;overflow:hidden;box-shadow:var(--shadow);border:1px solid var(--border);transition:all 0.3s}
+.code-card:hover{transform:translateY(-4px);box-shadow:0 8px 30px rgba(195,140,120,0.18)}
+.card-header{padding:16px 20px;background:linear-gradient(135deg,var(--accent),#fef0eb);border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between}
+.card-title{font-weight:700;font-size:14px;color:var(--text)}
+.card-tag{padding:4px 10px;background:var(--primary);color:white;border-radius:6px;font-size:11px;font-weight:700}
+.card-tag.beginner{background:#5dba7d}
+.card-tag.intermediate{background:#e8a048}
+.card-tag.advanced{background:#d65d5d}
+.code-block{padding:20px;background:#2d2520;max-height:280px;overflow-y:auto}
+.code-block pre{font-family:'Source Code Pro',monospace;font-size:12px;line-height:1.7;color:#e8ddd6;white-space:pre-wrap;word-break:break-word}
+.code-block .kw{color:#e89b7b}
+.code-block .str{color:#9dd68b}
+.code-block .num{color:#d4a6e8}
+.code-block .cm{color:#7a6d65}
+.code-block .fn{color:#7bc8e8}
+.card-footer{padding:14px 20px;background:var(--bg);display:flex;justify-content:space-between;align-items:center}
+.card-footer span{font-size:12px;color:var(--text-muted)}
+.copy-btn{padding:6px 14px;background:var(--primary-light);color:white;border:none;border-radius:8px;font-family:'Nunito',sans-serif;font-weight:600;font-size:12px;cursor:pointer;transition:all 0.2s}
+.copy-btn:hover{background:var(--primary)}
+.footer{background:var(--card);border-top:1px solid var(--border);padding:40px;text-align:center;margin-top:40px}
+.footer p{color:var(--text-muted);font-size:14px}
+.footer a{color:var(--primary);text-decoration:none;font-weight:600}
+::-webkit-scrollbar{width:6px;height:6px}
+::-webkit-scrollbar-track{background:var(--bg)}
+::-webkit-scrollbar-thumb{background:var(--primary-light);border-radius:3px}
+</style>
+</head>
+<body>
+
+<header class="header">
+<div class="header-content">
+<div class="logo">
+<div class="logo-icon">C</div>
+<div class="logo-text">claudeblox <span>engineering</span></div>
+</div>
+<nav class="nav">
+<button class="nav-btn active">Scripts</button>
+<button class="nav-btn">Templates</button>
+<button class="nav-btn">Tutorials</button>
+<button class="nav-btn">Community</button>
+</nav>
+</div>
+</header>
+
+<section class="hero">
+<h1>Roblox devving, <span>made simple</span></h1>
+<p>A collection of clean, ready-to-use Lua scripts for your Roblox games. From crypto simulators to obby checkpoints — just copy, paste, and build.</p>
+<div class="hero-buttons">
+<button class="btn btn-primary">Browse Scripts</button>
+<button class="btn btn-secondary">Learn Lua Basics</button>
+</div>
+</section>
+
+<section class="summary">
+<div class="summary-card">
+<h2>What is this?</h2>
+<p>Claudeblox Engineering is a curated library of Roblox Lua scripts organized by game type and feature. Whether you're building a tycoon, simulator, obby, or RPG — we've got the foundational code you need. All scripts follow best practices and are designed to be readable, modifiable, and game-ready.</p>
+</div>
+</section>
+
+<h2 class="section-title">💰 <span>Crypto & Economy</span> Systems</h2>
+<div class="grid">
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Crypto Mining System</span>
+<span class="card-tag intermediate">Intermediate</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> MiningSystem = {}
+
+<span class="kw">local</span> CRYPTO_TYPES = {
+    Bitcoin = {rate = <span class="num">0.00001</span>, difficulty = <span class="num">1.0</span>},
+    Ethereum = {rate = <span class="num">0.0003</span>, difficulty = <span class="num">0.8</span>},
+    Dogecoin = {rate = <span class="num">1.5</span>, difficulty = <span class="num">0.3</span>},
+}
+
+<span class="kw">function</span> MiningSystem:<span class="fn">mine</span>(player, cryptoType)
+    <span class="kw">local</span> crypto = CRYPTO_TYPES[cryptoType]
+    <span class="kw">if not</span> crypto <span class="kw">then return end</span>
+    
+    <span class="kw">local</span> miner = player:GetAttribute(<span class="str">"MinerLevel"</span>) <span class="kw">or</span> <span class="num">1</span>
+    <span class="kw">local</span> earned = crypto.rate * miner / crypto.difficulty
+    
+    <span class="kw">local</span> wallet = player.leaderstats[cryptoType]
+    wallet.Value = wallet.Value + earned
+<span class="kw">end</span>
+
+<span class="kw">return</span> MiningSystem</pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/MiningSystem.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Crypto Wallet UI Handler</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> Players = game:GetService(<span class="str">"Players"</span>)
+<span class="kw">local</span> player = Players.LocalPlayer
+<span class="kw">local</span> wallet = script.Parent
+
+<span class="kw">local function</span> <span class="fn">formatCrypto</span>(value)
+    <span class="kw">if</span> value >= <span class="num">1000000</span> <span class="kw">then</span>
+        <span class="kw">return</span> string.format(<span class="str">"%.2fM"</span>, value / <span class="num">1000000</span>)
+    <span class="kw">elseif</span> value >= <span class="num">1000</span> <span class="kw">then</span>
+        <span class="kw">return</span> string.format(<span class="str">"%.2fK"</span>, value / <span class="num">1000</span>)
+    <span class="kw">end</span>
+    <span class="kw">return</span> string.format(<span class="str">"%.4f"</span>, value)
+<span class="kw">end</span>
+
+player.leaderstats.Bitcoin.Changed:<span class="fn">Connect</span>(<span class="kw">function</span>(val)
+    wallet.BitcoinLabel.Text = <span class="fn">formatCrypto</span>(val)
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>StarterGui/WalletUI.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Trading System</span>
+<span class="card-tag advanced">Advanced</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> TradeService = {}
+<span class="kw">local</span> activeTrades = {}
+
+<span class="kw">function</span> TradeService:<span class="fn">createOffer</span>(seller, crypto, amount, price)
+    <span class="kw">local</span> offer = {
+        id = HttpService:GenerateGUID(),
+        seller = seller.UserId,
+        crypto = crypto,
+        amount = amount,
+        pricePerUnit = price,
+        timestamp = os.time()
+    }
+    table.insert(activeTrades, offer)
+    <span class="kw">return</span> offer.id
+<span class="kw">end</span>
+
+<span class="kw">function</span> TradeService:<span class="fn">acceptOffer</span>(buyer, offerId)
+    <span class="kw">for</span> i, offer <span class="kw">in</span> ipairs(activeTrades) <span class="kw">do</span>
+        <span class="kw">if</span> offer.id == offerId <span class="kw">then</span>
+            <span class="kw">local</span> totalCost = offer.amount * offer.pricePerUnit
+            <span class="cm">-- Transfer crypto and cash</span>
+            table.remove(activeTrades, i)
+            <span class="kw">return true</span>
+        <span class="kw">end</span>
+    <span class="kw">end</span>
+    <span class="kw">return false</span>
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/TradeService.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+</div>
+
+<h2 class="section-title">🏃 <span>Obby & Platformer</span> Systems</h2>
+<div class="grid">
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Checkpoint System</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> checkpoint = script.Parent
+<span class="kw">local</span> stageNumber = checkpoint:GetAttribute(<span class="str">"Stage"</span>)
+
+checkpoint.Touched:<span class="fn">Connect</span>(<span class="kw">function</span>(hit)
+    <span class="kw">local</span> player = Players:GetPlayerFromCharacter(hit.Parent)
+    <span class="kw">if not</span> player <span class="kw">then return end</span>
+    
+    <span class="kw">local</span> currentStage = player.leaderstats.Stage.Value
+    
+    <span class="kw">if</span> stageNumber > currentStage <span class="kw">then</span>
+        player.leaderstats.Stage.Value = stageNumber
+        player.RespawnLocation = checkpoint
+        
+        <span class="cm">-- Play checkpoint sound</span>
+        checkpoint.Sound:Play()
+    <span class="kw">end</span>
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>Workspace/Checkpoints/Script.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Kill Brick</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> killPart = script.Parent
+<span class="kw">local</span> debounce = {}
+
+killPart.Touched:<span class="fn">Connect</span>(<span class="kw">function</span>(hit)
+    <span class="kw">local</span> humanoid = hit.Parent:FindFirstChild(<span class="str">"Humanoid"</span>)
+    <span class="kw">if not</span> humanoid <span class="kw">then return end</span>
+    
+    <span class="kw">local</span> player = Players:GetPlayerFromCharacter(hit.Parent)
+    <span class="kw">if</span> debounce[player] <span class="kw">then return end</span>
+    
+    debounce[player] = <span class="kw">true</span>
+    humanoid.Health = <span class="num">0</span>
+    
+    task.delay(<span class="num">1</span>, <span class="kw">function</span>()
+        debounce[player] = <span class="kw">nil</span>
+    <span class="kw">end</span>)
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>Workspace/KillBrick/Script.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Moving Platform</span>
+<span class="card-tag intermediate">Intermediate</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> TweenService = game:GetService(<span class="str">"TweenService"</span>)
+<span class="kw">local</span> platform = script.Parent
+
+<span class="kw">local</span> startPos = platform.Position
+<span class="kw">local</span> endPos = startPos + Vector3.new(<span class="num">20</span>, <span class="num">0</span>, <span class="num">0</span>)
+<span class="kw">local</span> moveTime = <span class="num">3</span>
+
+<span class="kw">local</span> tweenInfo = TweenInfo.new(
+    moveTime,
+    Enum.EasingStyle.Sine,
+    Enum.EasingDirection.InOut,
+    <span class="num">-1</span>, <span class="cm">-- infinite repeat</span>
+    <span class="kw">true</span> <span class="cm">-- reverse</span>
+)
+
+<span class="kw">local</span> tween = TweenService:Create(
+    platform,
+    tweenInfo,
+    {Position = endPos}
+)
+
+tween:Play()</pre>
+</div>
+<div class="card-footer">
+<span>Workspace/MovingPlatform/Script.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+</div>
+
+<h2 class="section-title">🐾 <span>Pet & Collection</span> Systems</h2>
+<div class="grid">
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Pet Follow System</span>
+<span class="card-tag intermediate">Intermediate</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> PetModule = {}
+
+<span class="kw">function</span> PetModule:<span class="fn">spawnPet</span>(player, petId)
+    <span class="kw">local</span> petModel = ReplicatedStorage.Pets[petId]:Clone()
+    <span class="kw">local</span> character = player.Character
+    
+    petModel.Parent = workspace.ActivePets
+    
+    <span class="cm">-- Follow behavior</span>
+    RunService.Heartbeat:<span class="fn">Connect</span>(<span class="kw">function</span>()
+        <span class="kw">if not</span> character <span class="kw">then return end</span>
+        
+        <span class="kw">local</span> targetPos = character.HumanoidRootPart.Position
+            + Vector3.new(<span class="num">3</span>, <span class="num">2</span>, <span class="num">0</span>)
+        
+        <span class="kw">local</span> newCF = CFrame.new(
+            petModel.PrimaryPart.Position:Lerp(targetPos, <span class="num">0.1</span>)
+        )
+        petModel:SetPrimaryPartCFrame(newCF)
+    <span class="kw">end</span>)
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/PetModule.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Egg Hatching</span>
+<span class="card-tag intermediate">Intermediate</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> EggService = {}
+
+<span class="kw">local</span> EGGS = {
+    Common = {
+        cost = <span class="num">100</span>,
+        pets = {
+            {name = <span class="str">"Dog"</span>, chance = <span class="num">40</span>},
+            {name = <span class="str">"Cat"</span>, chance = <span class="num">40</span>},
+            {name = <span class="str">"Bunny"</span>, chance = <span class="num">20</span>},
+        }
+    },
+    Rare = {
+        cost = <span class="num">500</span>,
+        pets = {
+            {name = <span class="str">"Dragon"</span>, chance = <span class="num">10</span>},
+            {name = <span class="str">"Phoenix"</span>, chance = <span class="num">5</span>},
+            {name = <span class="str">"Unicorn"</span>, chance = <span class="num">85</span>},
+        }
+    }
+}
+
+<span class="kw">function</span> EggService:<span class="fn">hatch</span>(player, eggType)
+    <span class="kw">local</span> egg = EGGS[eggType]
+    <span class="kw">local</span> roll = math.random(<span class="num">1</span>, <span class="num">100</span>)
+    <span class="kw">local</span> cumulative = <span class="num">0</span>
+    
+    <span class="kw">for</span> _, pet <span class="kw">in</span> ipairs(egg.pets) <span class="kw">do</span>
+        cumulative = cumulative + pet.chance
+        <span class="kw">if</span> roll <= cumulative <span class="kw">then</span>
+            <span class="kw">return</span> pet.name
+        <span class="kw">end</span>
+    <span class="kw">end</span>
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/EggService.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Pet Inventory</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> MAX_PETS = <span class="num">50</span>
+
+<span class="kw">function</span> <span class="fn">addPet</span>(player, petName)
+    <span class="kw">local</span> inventory = playerData[player.UserId].pets
+    
+    <span class="kw">if</span> #inventory >= MAX_PETS <span class="kw">then</span>
+        <span class="kw">return false</span>, <span class="str">"Inventory full!"</span>
+    <span class="kw">end</span>
+    
+    <span class="kw">local</span> pet = {
+        id = HttpService:GenerateGUID(),
+        name = petName,
+        level = <span class="num">1</span>,
+        equipped = <span class="kw">false</span>
+    }
+    
+    table.insert(inventory, pet)
+    <span class="kw">return true</span>, pet
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/Inventory.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+</div>
+
+<h2 class="section-title">🏭 <span>Tycoon & Building</span> Systems</h2>
+<div class="grid">
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Dropper System</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> dropper = script.Parent
+<span class="kw">local</span> dropPart = ReplicatedStorage.DropPart
+
+<span class="kw">local</span> DROP_RATE = <span class="num">1</span> <span class="cm">-- seconds</span>
+<span class="kw">local</span> DROP_VALUE = <span class="num">5</span>
+
+<span class="kw">while true do</span>
+    task.wait(DROP_RATE)
+    
+    <span class="kw">local</span> newDrop = dropPart:Clone()
+    newDrop.Position = dropper.Position - Vector3.new(<span class="num">0</span>, <span class="num">2</span>, <span class="num">0</span>)
+    newDrop:SetAttribute(<span class="str">"Value"</span>, DROP_VALUE)
+    newDrop.Parent = workspace.Drops
+    
+    Debris:AddItem(newDrop, <span class="num">30</span>)
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>Workspace/Tycoon/Dropper.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Collector/Conveyor</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> collector = script.Parent
+<span class="kw">local</span> owner = collector:GetAttribute(<span class="str">"Owner"</span>)
+
+collector.Touched:<span class="fn">Connect</span>(<span class="kw">function</span>(hit)
+    <span class="kw">local</span> value = hit:GetAttribute(<span class="str">"Value"</span>)
+    <span class="kw">if not</span> value <span class="kw">then return end</span>
+    
+    <span class="kw">local</span> player = Players:GetPlayerByUserId(owner)
+    <span class="kw">if</span> player <span class="kw">then</span>
+        player.leaderstats.Cash.Value += value
+    <span class="kw">end</span>
+    
+    hit:Destroy()
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>Workspace/Tycoon/Collector.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Button Purchase</span>
+<span class="card-tag intermediate">Intermediate</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> button = script.Parent
+<span class="kw">local</span> price = button:GetAttribute(<span class="str">"Price"</span>)
+<span class="kw">local</span> unlockItem = button:GetAttribute(<span class="str">"Unlocks"</span>)
+
+<span class="kw">local</span> debounce = <span class="kw">false</span>
+
+button.Touched:<span class="fn">Connect</span>(<span class="kw">function</span>(hit)
+    <span class="kw">if</span> debounce <span class="kw">then return end</span>
+    
+    <span class="kw">local</span> player = Players:GetPlayerFromCharacter(hit.Parent)
+    <span class="kw">if not</span> player <span class="kw">then return end</span>
+    
+    <span class="kw">local</span> cash = player.leaderstats.Cash
+    
+    <span class="kw">if</span> cash.Value >= price <span class="kw">then</span>
+        debounce = <span class="kw">true</span>
+        cash.Value -= price
+        
+        <span class="cm">-- Unlock the item</span>
+        <span class="kw">local</span> item = button.Parent[unlockItem]
+        item.Transparency = <span class="num">0</span>
+        item.CanCollide = <span class="kw">true</span>
+        
+        button:Destroy()
+    <span class="kw">end</span>
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>Workspace/Tycoon/PurchaseButton.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+</div>
+
+<h2 class="section-title">💾 <span>Data & Saving</span> Systems</h2>
+<div class="grid">
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">DataStore Save/Load</span>
+<span class="card-tag advanced">Advanced</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> DataStoreService = game:GetService(<span class="str">"DataStoreService"</span>)
+<span class="kw">local</span> playerStore = DataStoreService:GetDataStore(<span class="str">"PlayerData_v1"</span>)
+
+<span class="kw">local</span> DEFAULT_DATA = {
+    cash = <span class="num">0</span>,
+    level = <span class="num">1</span>,
+    inventory = {},
+    settings = {music = <span class="kw">true</span>, sfx = <span class="kw">true</span>}
+}
+
+<span class="kw">function</span> <span class="fn">loadData</span>(player)
+    <span class="kw">local</span> key = <span class="str">"Player_"</span> .. player.UserId
+    
+    <span class="kw">local</span> success, data = pcall(<span class="kw">function</span>()
+        <span class="kw">return</span> playerStore:GetAsync(key)
+    <span class="kw">end</span>)
+    
+    <span class="kw">if</span> success <span class="kw">and</span> data <span class="kw">then</span>
+        <span class="kw">return</span> data
+    <span class="kw">end</span>
+    <span class="kw">return</span> DEFAULT_DATA
+<span class="kw">end</span>
+
+<span class="kw">function</span> <span class="fn">saveData</span>(player, data)
+    <span class="kw">local</span> key = <span class="str">"Player_"</span> .. player.UserId
+    
+    pcall(<span class="kw">function</span>()
+        playerStore:SetAsync(key, data)
+    <span class="kw">end</span>)
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/DataManager.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Leaderstats Setup</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> Players = game:GetService(<span class="str">"Players"</span>)
+
+Players.PlayerAdded:<span class="fn">Connect</span>(<span class="kw">function</span>(player)
+    <span class="kw">local</span> leaderstats = Instance.new(<span class="str">"Folder"</span>)
+    leaderstats.Name = <span class="str">"leaderstats"</span>
+    leaderstats.Parent = player
+    
+    <span class="kw">local</span> cash = Instance.new(<span class="str">"IntValue"</span>)
+    cash.Name = <span class="str">"Cash"</span>
+    cash.Value = <span class="num">0</span>
+    cash.Parent = leaderstats
+    
+    <span class="kw">local</span> level = Instance.new(<span class="str">"IntValue"</span>)
+    level.Name = <span class="str">"Level"</span>
+    level.Value = <span class="num">1</span>
+    level.Parent = leaderstats
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/Leaderstats.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Auto-Save System</span>
+<span class="card-tag intermediate">Intermediate</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> SAVE_INTERVAL = <span class="num">60</span> <span class="cm">-- seconds</span>
+
+<span class="cm">-- Auto-save loop</span>
+<span class="kw">while true do</span>
+    task.wait(SAVE_INTERVAL)
+    
+    <span class="kw">for</span> _, player <span class="kw">in</span> ipairs(Players:GetPlayers()) <span class="kw">do</span>
+        <span class="kw">local</span> data = collectPlayerData(player)
+        saveData(player, data)
+    <span class="kw">end</span>
+<span class="kw">end</span>
+
+<span class="cm">-- Save on leave</span>
+Players.PlayerRemoving:<span class="fn">Connect</span>(<span class="kw">function</span>(player)
+    <span class="kw">local</span> data = collectPlayerData(player)
+    saveData(player, data)
+<span class="kw">end</span>)
+
+<span class="cm">-- Save on shutdown</span>
+game:BindToClose(<span class="kw">function</span>()
+    <span class="kw">for</span> _, player <span class="kw">in</span> ipairs(Players:GetPlayers()) <span class="kw">do</span>
+        <span class="kw">local</span> data = collectPlayerData(player)
+        saveData(player, data)
+    <span class="kw">end</span>
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/AutoSave.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+</div>
+
+<h2 class="section-title">⚔️ <span>Combat & Abilities</span> Systems</h2>
+<div class="grid">
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Basic Sword</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> tool = script.Parent
+<span class="kw">local</span> damage = <span class="num">25</span>
+<span class="kw">local</span> debounce = <span class="kw">false</span>
+
+tool.Handle.Touched:<span class="fn">Connect</span>(<span class="kw">function</span>(hit)
+    <span class="kw">if</span> debounce <span class="kw">then return end</span>
+    
+    <span class="kw">local</span> humanoid = hit.Parent:FindFirstChild(<span class="str">"Humanoid"</span>)
+    <span class="kw">if not</span> humanoid <span class="kw">then return end</span>
+    <span class="kw">if</span> humanoid == tool.Parent.Humanoid <span class="kw">then return end</span>
+    
+    debounce = <span class="kw">true</span>
+    humanoid:TakeDamage(damage)
+    
+    task.delay(<span class="num">0.5</span>, <span class="kw">function</span>()
+        debounce = <span class="kw">false</span>
+    <span class="kw">end</span>)
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>Tool/Sword/Script.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Cooldown Manager</span>
+<span class="card-tag intermediate">Intermediate</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> CooldownManager = {}
+<span class="kw">local</span> cooldowns = {}
+
+<span class="kw">function</span> CooldownManager:<span class="fn">start</span>(player, ability, duration)
+    <span class="kw">local</span> key = player.UserId .. <span class="str">"_"</span> .. ability
+    cooldowns[key] = tick() + duration
+<span class="kw">end</span>
+
+<span class="kw">function</span> CooldownManager:<span class="fn">isReady</span>(player, ability)
+    <span class="kw">local</span> key = player.UserId .. <span class="str">"_"</span> .. ability
+    <span class="kw">local</span> endTime = cooldowns[key]
+    
+    <span class="kw">if not</span> endTime <span class="kw">then return true end</span>
+    <span class="kw">return</span> tick() >= endTime
+<span class="kw">end</span>
+
+<span class="kw">function</span> CooldownManager:<span class="fn">remaining</span>(player, ability)
+    <span class="kw">local</span> key = player.UserId .. <span class="str">"_"</span> .. ability
+    <span class="kw">local</span> endTime = cooldowns[key]
+    
+    <span class="kw">if not</span> endTime <span class="kw">then return</span> <span class="num">0</span> <span class="kw">end</span>
+    <span class="kw">return</span> math.max(<span class="num">0</span>, endTime - tick())
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>ReplicatedStorage/CooldownManager.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Projectile System</span>
+<span class="card-tag advanced">Advanced</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> Projectile = {}
+
+<span class="kw">function</span> Projectile:<span class="fn">fire</span>(origin, direction, speed, damage)
+    <span class="kw">local</span> bullet = Instance.new(<span class="str">"Part"</span>)
+    bullet.Size = Vector3.new(<span class="num">0.5</span>, <span class="num">0.5</span>, <span class="num">2</span>)
+    bullet.CFrame = CFrame.new(origin, origin + direction)
+    bullet.Anchored = <span class="kw">false</span>
+    bullet.CanCollide = <span class="kw">false</span>
+    bullet.Parent = workspace
+    
+    <span class="kw">local</span> velocity = Instance.new(<span class="str">"BodyVelocity"</span>)
+    velocity.Velocity = direction.Unit * speed
+    velocity.MaxForce = Vector3.new(<span class="num">1e9</span>, <span class="num">1e9</span>, <span class="num">1e9</span>)
+    velocity.Parent = bullet
+    
+    bullet.Touched:<span class="fn">Connect</span>(<span class="kw">function</span>(hit)
+        <span class="kw">local</span> humanoid = hit.Parent:FindFirstChild(<span class="str">"Humanoid"</span>)
+        <span class="kw">if</span> humanoid <span class="kw">then</span>
+            humanoid:TakeDamage(damage)
+        <span class="kw">end</span>
+        bullet:Destroy()
+    <span class="kw">end</span>)
+    
+    Debris:AddItem(bullet, <span class="num">5</span>)
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>ReplicatedStorage/Projectile.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+</div>
+
+<h2 class="section-title">🎮 <span>UI & Effects</span> Systems</h2>
+<div class="grid">
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Notification System</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> TweenService = game:GetService(<span class="str">"TweenService"</span>)
+<span class="kw">local</span> notifFrame = script.Parent
+
+<span class="kw">function</span> <span class="fn">showNotification</span>(message, duration)
+    duration = duration <span class="kw">or</span> <span class="num">3</span>
+    
+    notifFrame.TextLabel.Text = message
+    notifFrame.Position = UDim2.new(<span class="num">0.5</span>, <span class="num">0</span>, <span class="num">-0.1</span>, <span class="num">0</span>)
+    notifFrame.Visible = <span class="kw">true</span>
+    
+    <span class="kw">local</span> slideIn = TweenService:Create(
+        notifFrame,
+        TweenInfo.new(<span class="num">0.3</span>),
+        {Position = UDim2.new(<span class="num">0.5</span>, <span class="num">0</span>, <span class="num">0.1</span>, <span class="num">0</span>)}
+    )
+    slideIn:Play()
+    
+    task.delay(duration, <span class="kw">function</span>()
+        <span class="kw">local</span> slideOut = TweenService:Create(
+            notifFrame,
+            TweenInfo.new(<span class="num">0.3</span>),
+            {Position = UDim2.new(<span class="num">0.5</span>, <span class="num">0</span>, <span class="num">-0.1</span>, <span class="num">0</span>)}
+        )
+        slideOut:Play()
+    <span class="kw">end</span>)
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>StarterGui/Notifications.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Button Hover Effects</span>
+<span class="card-tag beginner">Beginner</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> TweenService = game:GetService(<span class="str">"TweenService"</span>)
+<span class="kw">local</span> button = script.Parent
+
+<span class="kw">local</span> originalSize = button.Size
+
+button.MouseEnter:<span class="fn">Connect</span>(<span class="kw">function</span>()
+    TweenService:Create(
+        button,
+        TweenInfo.new(<span class="num">0.15</span>),
+        {Size = originalSize + UDim2.new(<span class="num">0.02</span>, <span class="num">0</span>, <span class="num">0.02</span>, <span class="num">0</span>)}
+    ):Play()
+<span class="kw">end</span>)
+
+button.MouseLeave:<span class="fn">Connect</span>(<span class="kw">function</span>()
+    TweenService:Create(
+        button,
+        TweenInfo.new(<span class="num">0.15</span>),
+        {Size = originalSize}
+    ):Play()
+<span class="kw">end</span>)</pre>
+</div>
+<div class="card-footer">
+<span>StarterGui/ButtonEffects.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+<div class="code-card">
+<div class="card-header">
+<span class="card-title">Daily Reward Timer</span>
+<span class="card-tag intermediate">Intermediate</span>
+</div>
+<div class="code-block">
+<pre><span class="kw">local</span> REWARD_COOLDOWN = <span class="num">86400</span> <span class="cm">-- 24 hours</span>
+
+<span class="kw">function</span> <span class="fn">canClaimReward</span>(player)
+    <span class="kw">local</span> lastClaim = playerData[player.UserId].lastReward
+    <span class="kw">if not</span> lastClaim <span class="kw">then return true end</span>
+    
+    <span class="kw">return</span> os.time() - lastClaim >= REWARD_COOLDOWN
+<span class="kw">end</span>
+
+<span class="kw">function</span> <span class="fn">claimReward</span>(player)
+    <span class="kw">if not</span> canClaimReward(player) <span class="kw">then</span>
+        <span class="kw">return false</span>
+    <span class="kw">end</span>
+    
+    <span class="kw">local</span> streak = playerData[player.UserId].streak <span class="kw">or</span> <span class="num">0</span>
+    streak = streak + <span class="num">1</span>
+    
+    <span class="kw">local</span> reward = <span class="num">100</span> * streak
+    player.leaderstats.Cash.Value += reward
+    
+    playerData[player.UserId].lastReward = os.time()
+    playerData[player.UserId].streak = streak
+    
+    <span class="kw">return true</span>, reward
+<span class="kw">end</span></pre>
+</div>
+<div class="card-footer">
+<span>ServerScriptService/DailyReward.lua</span>
+<button class="copy-btn">Copy</button>
+</div>
+</div>
+
+</div>
+
+<footer class="footer">
+<p>Made with care for Roblox developers everywhere.</p>
+<p style="margin-top:8px"><a href="#">Submit a Script</a> · <a href="#">Report an Issue</a> · <a href="#">Discord</a></p>
+</footer>
+
+<script>
+document.querySelectorAll('.copy-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        const codeBlock = this.closest('.code-card').querySelector('pre');
+        const text = codeBlock.textContent;
+        navigator.clipboard.writeText(text);
+        this.textContent = 'Copied!';
+        setTimeout(() => {
+            this.textContent = 'Copy';
+        }, 1500);
+    });
+});
+
+document.querySelectorAll('.nav-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+        document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+    });
+});
+</script>
+
+</body>
+</html>
